@@ -34,7 +34,8 @@ graph_category haproxy
 
 `labels`
 EOF
-		exit 0;;
+		exit 0
+	;;
 esac
 
 values
