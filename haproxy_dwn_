@@ -21,7 +21,7 @@ labels() {
 }
 
 values() {
-	servers_section | awk -F, '{print $2"_out.value "$23"\n"$2"_in.value "$25}'
+	servers_section | awk -F, '{print $2"_dwn.value "$23"\n"$2"_dwntime.value "$25}'
 }
 
 graph_title="${title} downtime"
