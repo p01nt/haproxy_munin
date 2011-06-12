@@ -1,5 +1,5 @@
 #!/bin/sh
-# p01nt <p01nt@klets.name>
+# Pasha "p01nt" Klets <pasha@klets.name>
 
 name=`basename $0`
 title=`echo ${name} | awk -F_ '{print $NF}'`
@@ -17,20 +17,22 @@ servers() {
 }
 
 labels() {
-	servers_section | awk -F, '{print $2".label "$2}'
+	servers_section | awk -F, '{print $2"_dwn.label "$2" down\n"$2"_dwntime.label "$2" downtime\n"$2"_dwn.type COUNTER\n"$2"_dwntime.type COUNTER\n"$2"_dwntime.negative "$2"_dwn" }'
 }
 
 values() {
-	servers_section | awk -F, '{print $2".value "$9}'
+	servers_section | awk -F, '{print $2"_out.value "$23"\n"$2"_in.value "$25}'
 }
 
+graph_title="${title} downtime"
+graph_vlabel=${title}
 
 case $1 in
    config)
 		cat <<EOF
-graph_title ${title} bytes in
-graph_vlabel ${name}
 graph_category haproxy
+graph_title  ${graph_title}
+graph_vlabel ${graph_vlabel}
 
 `labels`
 EOF

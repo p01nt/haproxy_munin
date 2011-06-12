@@ -1,5 +1,5 @@
 #!/bin/sh
-# p01nt <p01nt@klets.name>
+# Pasha "p01nt" Klets <pasha@klets.name>
 
 name=`basename $0`
 title=`echo ${name} | awk -F_ '{print $NF}'`
@@ -8,19 +8,14 @@ hp_stat() {
 	echo "show stat" | socat unix-connect:/tmp/haproxy stdio
 }
 
-servers_section() {
-	hp_stat | grep '^'${title}',' |  egrep -v '^'${title}',(FRONTEND|BACKEND)'
-}
-
-servers() {
-	servers_section | awk -F, '{print $2}'
-}
-
 labels() {
 	cat <<EOF
 req.label requests
+req.type COUNTER
 conn.label connections
+conn.type COUNTER
 resp.label responses
+resp.type COUNTER
 EOF
 }
 
@@ -33,12 +28,15 @@ EOF
 }
 
 
+graph_title="${title} errors"
+graph_vlabel=${title}
+
 case $1 in
    config)
 		cat <<EOF
-graph_title ${title} errors
-graph_vlabel ${name}
 graph_category haproxy
+graph_title  ${graph_title}
+graph_vlabel ${graph_vlabel}
 
 `labels`
 EOF

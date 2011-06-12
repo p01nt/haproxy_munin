@@ -1,5 +1,5 @@
 #!/bin/sh
-# p01nt <p01nt@klets.name>
+# Pasha "p01nt" Klets <pasha@klets.name>
 
 name=`basename $0`
 title=`echo ${name} | awk -F_ '{print $NF}'`
@@ -17,20 +17,22 @@ servers() {
 }
 
 labels() {
-	servers_section | awk -F, '{print $2".label "$2}'
+	servers_section | awk -F, '{print $2".label "$2"\n"$2".type GAUGE"}'
 }
 
 values() {
 	servers_section | awk -F, '{print $2".value "$5}'
 }
 
+graph_title="${title} sessions"
+graph_vlabel=${title}
 
 case $1 in
    config)
 		cat <<EOF
-graph_title ${title} sessions 
-graph_vlabel ${name}
 graph_category haproxy
+graph_title  ${graph_title}
+graph_vlabel ${graph_vlabel}
 
 `labels`
 EOF
