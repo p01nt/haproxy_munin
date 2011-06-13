@@ -17,7 +17,7 @@ servers() {
 }
 
 labels() {
-	servers_section | awk -F, '{print $2".label "$2"\n"$2".type GAUGE"}'
+	servers_section | awk -F, '{print $2".label "$2"\n"$2".type GAUGE\n"$2".draw AREASTACK"}'
 }
 
 values() {
@@ -41,3 +41,5 @@ EOF
 esac
 
 values
+
+exit 0
