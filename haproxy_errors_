@@ -12,10 +12,13 @@ labels() {
 	cat <<EOF
 req.label requests
 req.type COUNTER
+req.draw AREASTACK
 conn.label connections
 conn.type COUNTER
+conn.draw AREASTACK
 resp.label responses
 resp.type COUNTER
+resp.draw AREASTACK
 EOF
 }
 
