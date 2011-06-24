@@ -1,0 +1,15 @@
+Author: Pasha Klets <pasha@klets.name>
+URL: https://github.com/p01nt/haproxy_munin
+
+Requirments:
+	cat > /etc/haproxy/haproxy.cfg <<EOF
+global
+	...
+	stats socket /tmp/haproxy
+	...
+EOF
+
+	cat > /etc/munin/plugin-conf.d/haproxy <<EOF
+[haproxy_*]
+user root
+EOF
