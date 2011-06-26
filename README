@@ -2,6 +2,11 @@ Author: Pasha Klets <pasha@klets.name>
 URL: https://github.com/p01nt/haproxy_munin
 
 Requirments:
+	Installed socat
+		sudo apt-get install socat (Debian/Ubuntu)
+		sudo make install clean -C /usr/ports/net/socat (FreeBSD)
+		pfexec pkgutil -i socat (Solaris)
+	
 	cat > /etc/haproxy/haproxy.cfg <<EOF
 global
 	...
@@ -13,3 +18,4 @@ EOF
 [haproxy_*]
 user root
 EOF
+
